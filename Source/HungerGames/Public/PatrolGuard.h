@@ -13,6 +13,7 @@ class HUNGERGAMES_API APatrolGuard : public ATP_ThirdPersonCharacter
 {
     GENERATED_BODY()
 
+public: 
     UPROPERTY(EditInstanceOnly, Category = "Patrol Route")
     TArray<AActor*> patrolPointsCpp;
 	
