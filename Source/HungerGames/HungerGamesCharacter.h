@@ -4,6 +4,7 @@
 #include "HungerGamesCharacter.generated.h"
 
 class UInputComponent;
+class AGun;
 
 UCLASS(config=Game)
 class AHungerGamesCharacter : public ACharacter
@@ -41,6 +42,9 @@ class AHungerGamesCharacter : public ACharacter
 	/** Motion controller (left hand) */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UMotionControllerComponent* L_MotionController;
+
+private:
+    AGun* Gun;
 public:
 	AHungerGamesCharacter();
 
@@ -61,6 +65,9 @@ public:
 	/** Whether to use motion controller location for aiming. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint32 bUsingMotionControllers : 1;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Setup")
+    TSubclassOf<AGun> GunBlueprint;
 
 protected:
 
