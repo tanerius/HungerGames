@@ -38,6 +38,8 @@ AHungerGamesCharacter::AHungerGamesCharacter()
 	Mesh1P->RelativeRotation = FRotator(1.9f, -19.19f, 5.2f);
 	Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
 
+    
+
 	// Default offset from the character location for projectiles to spawn
 	GunOffset = FVector(100.0f, 0.0f, 10.0f);
 
@@ -78,12 +80,12 @@ void AHungerGamesCharacter::BeginPlay()
         UE_LOG(LogTemp, Warning, TEXT("Gun blueprint missing"));
         return;
     }
-
-
     Gun = GetWorld()->SpawnActor<AGun>(GunBlueprint);
 
-	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
-	Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+    //Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
+    Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+    Gun->AnimInstance = Mesh1P->GetAnimInstance(); // set anim instance for recoil for firing
+    PIC->BindAction("Fire", IE_Pressed, Gun, &AGun::OnFire);
 
 	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
 	if (bUsingMotionControllers)
@@ -112,7 +114,8 @@ void AHungerGamesCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	//InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AHungerGamesCharacter::TouchStarted);
 	if (EnableTouchscreenMovement(PlayerInputComponent) == false)
 	{
-		// PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AHungerGamesCharacter::OnFire);
+        PIC = PlayerInputComponent;
+		//PlayerInputComponent->BindAction("Fire", IE_Pressed, Gun, &AGun::OnFire);
 	}
 
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AHungerGamesCharacter::OnResetVR);

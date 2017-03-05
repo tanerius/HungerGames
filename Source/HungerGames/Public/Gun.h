@@ -27,14 +27,16 @@ class HUNGERGAMES_API AGun : public AActor
     
 
 protected:
-    /** Fires a virtual projectile. */
-    void OnFire();
+    
 public:	
 	// Sets default values for this actor's properties
 	AGun();
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+    /** Fires a virtual projectile. */
+    void OnFire();
 	
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;

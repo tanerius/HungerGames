@@ -45,6 +45,7 @@ class AHungerGamesCharacter : public ACharacter
 
 private:
     AGun* Gun;
+    class UInputComponent* PIC;
 public:
 	AHungerGamesCharacter();
 
