@@ -36,6 +36,7 @@ public:
 	virtual void BeginPlay() override;
 
     /** Fires a virtual projectile. */
+    UFUNCTION(BlueprintCallable, Category = "Input")
     void OnFire();
 	
 	// Called every frame
